@@ -3,7 +3,7 @@ import tensorflow as tf
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D, Dropout
 import numpy as np
 
 mnist = tf.keras.datasets.fashion_mnist
@@ -26,11 +26,15 @@ model = Sequential([
     MaxPooling2D(2, 2),
     Flatten(),
     Dense(128, activation='relu'),
+    Dropout(0.3),
     Dense(10, activation='softmax')
 ])
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 model.summary()
-model.fit(training_images, training_labels, epochs=5)
+
+# can use Early Stopping if you have many epochs
+
+model.fit(training_images, training_labels, epochs=5)  # can increase epochs to 30
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 print(test_acc)
 

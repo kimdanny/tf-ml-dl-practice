@@ -20,7 +20,7 @@ class myCallback(tf.keras.callbacks.Callback):
 
 
 model = tf.keras.models.Sequential([
-    Flatten(),  # turns the matrix into a 1-Dimensional set
+    Flatten(input_shape=(28, 28)),  # turns the matrix into a 1-Dimensional set
     Dense(128, activation=tf.nn.relu),
     Dense(10, activation=tf.nn.softmax)
 ])
